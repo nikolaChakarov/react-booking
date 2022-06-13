@@ -1,11 +1,18 @@
-import React from 'react'
+import React from "react";
+import styled from "styled-components";
+
+import Navbar from "../../components/navbar/Navbar";
+import Header from "../../components/header/Header";
 
 const Hotels = () => {
-    return (
-        <div>Hotels
+	return (
+		<HotelsContainer>
+			<Navbar />
+			<Header type="hotels" />
+		</HotelsContainer>
+	);
+};
 
-        </div>
-    )
-}
+const HotelsContainer = styled.div``;
 
-export default Hotels
+export default Hotels;
