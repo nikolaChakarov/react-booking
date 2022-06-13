@@ -5,6 +5,9 @@ import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import Featured from "../../components/featured/Featured";
 import PropertyList from "../../components/propertyList/PropertyList";
+import FeaturedProperties from "../../components/featuredProperties/FeaturedProperties";
+import MailList from "../../components/mailList/MailList";
+import Footer from "../../components/footer/Footer";
 
 const Home = () => {
 	return (
@@ -16,6 +19,10 @@ const Home = () => {
 				<Featured />
 				<h1 className="home-title">Browse by property type</h1>
 				<PropertyList />
+				<h1 className="home-title">Home guest love</h1>
+				<FeaturedProperties />
+				<MailList />
+				<Footer />
 			</div>
 		</HomePageContainer>
 	);
@@ -34,7 +41,6 @@ const HomePageContainer = styled.div`
 		margin-top: 50px;
 		display: flex;
 		flex-direction: column;
-		border: 2px dashed red;
 		align-items: center;
 		gap: 30px;
 	}

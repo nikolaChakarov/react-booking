@@ -45,7 +45,6 @@ const Featured = () => {
 const FeaturedContainer = styled.div`
 	width: 100%;
 	max-width: 1024px;
-	border: 1px dashed green;
 	display: flex;
 	justify-content: space-between;
 	gap: 20px;
