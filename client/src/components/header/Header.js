@@ -46,7 +46,7 @@ const Header = ({ type }) => {
 	};
 
 	return (
-		<HeaderContainer className="header-container">
+		<HeaderContainer className="header-container" type={type}>
 			<div className="header-wrapper">
 				<div className="header-list">
 					<div className="header-list-item active">
@@ -219,8 +219,7 @@ const HeaderContainer = styled.header`
 	.header-wrapper {
 		flex: 1;
 		max-width: 1024px;
-		margin: 20px 0 100px 0;
-
+		margin: ${({ type }) => `20px 0 ${type === "hotels" ? 0 : "100px"}  0`};
 		.header-list {
 			display: flex;
 			gap: 40px;
@@ -291,6 +290,7 @@ const HeaderContainer = styled.header`
 				position: absolute;
 				top: 50px;
 				border: 3px solid var(--yellow);
+				z-index: 2;
 			}
 		}
 
@@ -301,6 +301,7 @@ const HeaderContainer = styled.header`
 			color: #777;
 			border-radius: 5px;
 			box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
+			z-index: 2;
 
 			.option-item {
 				width: 200px;
