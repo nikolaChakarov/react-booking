@@ -105,6 +105,10 @@ const Hotels = () => {
 
 					<div className="list-result">
 						<SearchItem />
+						<SearchItem />
+						<SearchItem />
+						<SearchItem />
+						<SearchItem />
 					</div>
 				</div>
 			</div>
@@ -135,6 +139,7 @@ const HotelsContainer = styled.div`
 		border-radius: 10px;
 		position: sticky;
 		top: 10px;
+		height: max-content;
 	}
 
 	.ls-title {
