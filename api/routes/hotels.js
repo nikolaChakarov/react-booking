@@ -1,8 +1,10 @@
 const router = require("express").Router();
 const Hotel = require("../models/Hotel");
 
+const { createError } = require("../utils/error");
+
 // CREATE
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
 	try {
 		const newHotel = new Hotel(req.body);
 
@@ -10,13 +12,12 @@ router.post("/", async (req, res) => {
 
 		res.status(200).json({ status: "success", data: newHotel });
 	} catch (err) {
-		console.log(err);
-		res.status(500).json({ status: "fail", message: err.message });
+		next(err);
 	}
 });
 
 // UPDATE
-router.put("/:id", async (req, res) => {
+router.put("/:id", async (req, res, next) => {
 	try {
 		const updatedHotel = await Hotel.findByIdAndUpdate(
 			req.params.id,
@@ -26,44 +27,40 @@ router.put("/:id", async (req, res) => {
 
 		res.status(200).json({ status: "success", data: updatedHotel });
 	} catch (err) {
-		console.log(err);
-		res.status(500).json({ status: "fail", message: err.message });
+		next(err);
 	}
 });
 
 // DELETE
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req, res, next) => {
 	try {
 		const deletedHotes = await Hotel.findByIdAndDelete(req.params.id);
 
 		res.status(200).json({ status: "success", data: deletedHotes });
 	} catch (err) {
-		console.log(err);
-		res.status(500).json({ status: "fail", message: err.message });
+		next(err);
 	}
 });
 
 // GET
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res, next) => {
 	try {
 		const hotel = await Hotel.findById(req.params.id);
 
 		res.status(200).json({ status: "success", data: hotel });
 	} catch (err) {
-		console.log(err);
-		res.status(500).json({ status: "fail", message: err.message });
+		next(err);
 	}
 });
 
 // GET ALL
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
 	try {
 		const hotels = await Hotel.find();
 
 		res.status(200).json({ status: "success", data: hotels });
 	} catch (err) {
-		console.log(err);
-		res.status(500).json({ status: "fail", message: err.message });
+		next(err);
 	}
 });
 
