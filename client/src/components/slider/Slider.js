@@ -25,12 +25,13 @@ const Slider = ({ images, index, setPhotoClick }) => {
 	/* now scroll */
 	useEffect(() => {
 		document.body.style.overflow = "hidden";
+		window.scrollTo({ top: 0 });
 
 		return () => (document.body.style.overflow = "unset");
 	}, []);
 
 	return (
-		<SliderContainer>
+		<SliderContainer className="slider-container">
 			<FontAwesomeIcon
 				icon={faXmarkCircle}
 				className="sl-close-bttn"
