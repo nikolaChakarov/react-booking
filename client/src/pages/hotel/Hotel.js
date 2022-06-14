@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import MailList from "../../components/mailList/MailList";
 import Footer from "../../components/footer/Footer";
+import Slider from "../../components/slider/Slider";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 const Hotel = () => {
 	const photos = [
@@ -30,12 +32,24 @@ const Hotel = () => {
 		},
 	];
 
+	const [photoClick, setPhotoClick] = useState({
+		id: "",
+	});
+
 	return (
 		<HotelContainer>
 			<Navbar />
 			<Header type={"hotels"} />
 
 			<div className="main-wrapper">
+				{photoClick.id !== "" ? (
+					<Slider
+						images={photos}
+						index={photoClick.id}
+						setPhotoClick={setPhotoClick}
+					/>
+				) : null}
+
 				<div className="hotel-wrapper">
 					<button className="book-now">Reserve or Book Now!</button>
 					<h1 className="hotel-title">Grand Hotel</h1>
@@ -55,7 +69,12 @@ const Hotel = () => {
 					<div className="hotel-images">
 						{photos.map((photo, i) => (
 							<div className="hotel-image-wrapper" key={i}>
-								<img src={photo.src} alt="" className="hotel-img" />
+								<img
+									src={photo.src}
+									alt=""
+									className="hotel-img"
+									onClick={() => setPhotoClick({ id: i })}
+								/>
 							</div>
 						))}
 					</div>
@@ -98,6 +117,8 @@ const Hotel = () => {
 };
 
 const HotelContainer = styled.div`
+	position: relative;
+
 	.main-wrapper {
 		display: flex;
 		flex-direction: column;
@@ -161,6 +182,7 @@ const HotelContainer = styled.div`
 	.hotel-img {
 		width: 100%;
 		object-fit: cover;
+		cursor: pointer;
 	}
 
 	.hotel-details {
