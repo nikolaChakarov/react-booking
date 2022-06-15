@@ -47,7 +47,7 @@ exports.login = async (req, res, next) => {
 
 		const { password, isAdmin, ...rest } = user._doc;
 
-		res.status(201).json({
+		res.cookie("x-auth-token", token, { httpOnly: true }).status(201).json({
 			success: true,
 			user: rest,
 		});
