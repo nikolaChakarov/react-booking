@@ -37,6 +37,7 @@ exports.deleteHotel = async (req, res, next) => {
 };
 
 exports.getHotelById = async (req, res, next) => {
+
 	try {
 		const hotel = await Hotel.findById(req.params.id);
 
@@ -47,6 +48,7 @@ exports.getHotelById = async (req, res, next) => {
 };
 
 exports.getAllHotels = async (req, res, next) => {
+
 	try {
 		const hotels = await Hotel.find();
 
