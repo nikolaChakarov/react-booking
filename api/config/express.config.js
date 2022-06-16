@@ -1,4 +1,5 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const router = require("../router");
 
@@ -10,6 +11,8 @@ const expressConfig = (app) => {
 			origin: "http://localhost:3000",
 		})
 	);
+
+	app.use(cookieParser());
 
 	app.use(express.json());
 
