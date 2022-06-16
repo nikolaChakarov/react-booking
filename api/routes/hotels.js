@@ -6,21 +6,30 @@ const {
 	deleteHotel,
 	getHotelById,
 	getAllHotels,
+	countByCity,
+	countByType,
 } = require("../controllers/hotel.controller");
 
+const { verifyUser, verifyAdmin } = require("../utils/verifyToken");
+
 // CREATE HOTEL
-router.post("/", createHotel);
+router.post("/", verifyAdmin, createHotel);
 
 // UPDATE HOTEL
-router.put("/:id", updateHotel);
+router.put("/:id", verifyAdmin, updateHotel);
 
 // DELETE HOTEL
-router.delete("/:id", deleteHotel);
+router.delete("/:id", verifyAdmin, deleteHotel);
 
 // GET HOTEL BY ID
-router.get("/:id", getHotelById);
+router.get("/find_hotel_by_id/:id", getHotelById);
 
 // GET ALL HOTELS
 router.get("/", getAllHotels);
+
+// QUERY HOTEL BY CITY NAMES
+router.get("/countByCity", countByCity);
+
+router.get("/countByType", countByType);
 
 module.exports = router;

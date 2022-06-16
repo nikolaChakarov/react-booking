@@ -27,3 +27,13 @@ exports.verifyUser = (req, res, next) => {
 		}
 	});
 };
+
+exports.verifyAdmin = (req, res, next) => {
+	this.verifyToken(req, res, () => {
+		if (req.user.isAdmin) {
+			next();
+		} else {
+			return next(createError(403, "Not admin permission"));
+		}
+	});
+};
