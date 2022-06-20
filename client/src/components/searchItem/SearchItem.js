@@ -1,25 +1,36 @@
 import styled from "styled-components";
 
 import React from "react";
+import { Link } from "react-router-dom";
 
-const SearchItem = () => {
+const SearchItem = ({
+	photos,
+	name,
+	distance,
+	desc,
+	rating,
+	cheapestPrice,
+	_id,
+}) => {
 	return (
 		<SearchItemContainer className="search-item">
 			<img
-				src="https://cf.bstatic.com/xdata/images/hotel/square600/261707778.webp?k=fa6b6128468ec15e81f7d076b6f2473fa3a80c255582f155cae35f9edbffdd78&o=&s=1"
+				// src="https://cf.bstatic.com/xdata/images/hotel/square600/261707778.webp?k=fa6b6128468ec15e81f7d076b6f2473fa3a80c255582f155cae35f9edbffdd78&o=&s=1"
+				src={photos[0]}
 				alt=""
 				className="si-img"
 			/>
 
 			<div className="si-desc">
-				<h1 className="si-title">Tower Street Apartments</h1>
-				<span className="si-distance">500m from center</span>
+				<h1 className="si-title">{name}</h1>
+				<span className="si-distance">{distance}m from center</span>
 				<span className="si-taxi-op">Free airport taxi</span>
 				<span className="si-subtitle">
 					Studio Apartment with Air conditioning
 				</span>
 				<span className="si-features">
-					Entire studio • 1 bathroom • 21m² 1 full bed
+					{/* Entire studio • 1 bathroom • 21m² 1 full bed */}
+					{desc}
 				</span>
 				<span className="si-cancel-op">Free cancellation </span>
 				<span className="si-cancel-op-subtitle">
@@ -28,15 +39,19 @@ const SearchItem = () => {
 			</div>
 
 			<div className="si-details">
-				<div className="si-rating">
-					<span>Exellent</span>
-					<button>8.9</button>
-				</div>
+				{rating && (
+					<div className="si-rating">
+						<span>Exellent</span>
+						<button>{rating}</button>
+					</div>
+				)}
 
 				<div className="si-detail-texts">
-					<span className="si-price">$123</span>
+					<span className="si-price">${cheapestPrice}</span>
 					<span className="si-tax-op">Includes taxes and fees</span>
-					<button className="si-check-bttn">See availability</button>
+					<Link to={`/hotels/${_id}`}>
+						<button className="si-check-bttn">See availability</button>
+					</Link>
 				</div>
 			</div>
 		</SearchItemContainer>

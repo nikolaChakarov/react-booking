@@ -7,6 +7,7 @@ import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import SearchItem from "../../components/searchItem/SearchItem";
 import { DateRange } from "react-date-range";
+import useFetch from "../../hooks/useFetch";
 
 const Hotels = () => {
 	const location = useLocation();
@@ -18,7 +19,9 @@ const Hotels = () => {
 
 	const [options, setOptions] = useState(location.state.options);
 
-	console.log(location);
+	// console.log(location);
+
+	const { data, loading, error } = useFetch(`hotels?city=${destination}`);
 
 	return (
 		<HotelsContainer>
@@ -104,11 +107,15 @@ const Hotels = () => {
 					</div>
 
 					<div className="list-result">
-						<SearchItem />
-						<SearchItem />
-						<SearchItem />
-						<SearchItem />
-						<SearchItem />
+						{loading ? (
+							<p>Loading, please wait...</p>
+						) : (
+							<>
+								{data.map((el, i) => (
+									<SearchItem {...el} key={i} />
+								))}
+							</>
+						)}
 					</div>
 				</div>
 			</div>
