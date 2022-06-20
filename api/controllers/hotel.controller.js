@@ -37,6 +37,8 @@ exports.deleteHotel = async (req, res, next) => {
 };
 
 exports.getHotelById = async (req, res, next) => {
+	// console.log(req.params);
+
 	try {
 		const hotel = await Hotel.findById(req.params.id);
 
