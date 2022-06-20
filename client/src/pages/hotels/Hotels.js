@@ -18,10 +18,18 @@ const Hotels = () => {
 	const [date, setDate] = useState(location.state.date);
 
 	const [options, setOptions] = useState(location.state.options);
+	const [min, setMin] = useState(0);
+	const [max, setMax] = useState(1000);
 
 	// console.log(location);
 
-	const { data, loading, error } = useFetch(`hotels?city=${destination}`);
+	const { data, loading, error, refetch } = useFetch(
+		`hotels?city=${destination}&min=${min}&max=${max}`
+	);
+
+	const handleClick = (e) => {
+		refetch();
+	};
 
 	return (
 		<HotelsContainer>
@@ -62,14 +70,24 @@ const Hotels = () => {
 									<span className="ls-option-text">
 										Min price <small>per night</small>
 									</span>
-									<input type="number" className="ls-option-input" />
+									<input
+										type="number"
+										className="ls-option-input"
+										onChange={(e) => setMin(e.target.value)}
+										min={0}
+									/>
 								</div>
 
 								<div className="ls-option-item">
 									<span className="ls-option-text">
 										Max price <small>per night</small>
 									</span>
-									<input type="number" className="ls-option-input" />
+									<input
+										type="number"
+										className="ls-option-input"
+										onChange={(e) => setMax(e.target.value)}
+										min={0}
+									/>
 								</div>
 
 								<div className="ls-option-item">
@@ -103,7 +121,7 @@ const Hotels = () => {
 								</div>
 							</div>
 						</div>
-						<button>Search</button>
+						<button onClick={handleClick}>Search</button>
 					</div>
 
 					<div className="list-result">

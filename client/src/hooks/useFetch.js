@@ -23,9 +23,25 @@ const useFetch = (url) => {
 		};
 
 		fetchData();
-	}, [url]);
+	}, []);
 
-	return { data: dbRes.data || [], loading, error };
+	const refetch = async () => {
+		setLoading(true);
+
+		try {
+			const result = await (
+				await fetch(`http://localhost:8008/api/${url}`)
+			).json();
+
+			setDbRes(result);
+		} catch (err) {
+			setError(err);
+		}
+
+		setLoading(false);
+	};
+
+	return { data: dbRes.data || [], loading, error, refetch };
 };
 
 export default useFetch;
