@@ -47,8 +47,13 @@ exports.getHotelById = async (req, res, next) => {
 };
 
 exports.getAllHotels = async (req, res, next) => {
+	const { min, max, ...others } = req.query;
+
 	try {
-		const hotels = await Hotel.find();
+		const hotels = await Hotel.find({
+			...others,
+			cheapestPrice: { $gte: min || 1, $lte: max || 1000 },
+		}).limit(req.query.limit);
 
 		res.status(200).json({ status: "success", data: hotels });
 	} catch (err) {
@@ -74,7 +79,7 @@ exports.countByCity = async (req, res, next) => {
 };
 
 exports.countByType = async (req, res, next) => {
-	const types = ["apartment", "resort", "hotel", "villa", "cabin"];
+	const types = ["hotel", "resort", "appartment", "villa", "cabin"];
 	try {
 		let list = await Promise.all(types.map((el) => Hotel.find({ type: el })));
 

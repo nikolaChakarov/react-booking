@@ -9,7 +9,7 @@ const Featured = () => {
 	return (
 		<FeaturedContainer className="featured">
 			{loading ? (
-				"Loading, please wait"
+				<p className="loading-p">Loading, please wait...</p>
 			) : (
 				<>
 					<div className="featured-item">
@@ -61,6 +61,10 @@ const FeaturedContainer = styled.div`
 	gap: 20px;
 	color: #fff;
 	z-index: 1;
+
+	.loading-p {
+		color: var(--blue);
+	}
 
 	.featured-item {
 		position: relative;
