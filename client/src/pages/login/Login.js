@@ -1,10 +1,12 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 
 const Login = () => {
-	const { user, dispatch, error } = useContext(AuthContext);
+	const navigate = useNavigate();
+	const { dispatch, error, isLoading } = useContext(AuthContext);
 
 	const [credentials, setCredentials] = useState({
 		username: "",
@@ -42,8 +44,10 @@ const Login = () => {
 			}
 			dispatch({
 				type: "SUCCESS_LOGIN",
-				payload: res,
+				payload: res.user,
 			});
+
+			navigate("/");
 		} catch (err) {
 			console.log(err);
 			dispatch({
@@ -72,7 +76,7 @@ const Login = () => {
 					onChange={handleChange}
 					value={credentials.password}
 				/>
-				<button onClick={handleClick} className="l-bttn">
+				<button onClick={handleClick} className="l-bttn" disabled={isLoading}>
 					Login
 				</button>
 				{error && <span>{error}</span>}

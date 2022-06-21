@@ -23,7 +23,7 @@ import {
 
 const Header = ({ type }) => {
 	const navigate = useNavigate();
-	const { dispatch } = useContext(AuthContext);
+	const { dispatch, user } = useContext(AuthContext);
 
 	const [destination, setDestination] = useState("");
 	const [openCalendar, setOpenCalendar] = useState(false);
@@ -54,19 +54,18 @@ const Header = ({ type }) => {
 	};
 
 	const handleSearch = () => {
-
 		dispatch({
-			type: 'NEW_SEARCH',
+			type: "NEW_SEARCH",
 			payload: {
 				city: destination,
 				dates: [date[0].startDate, date[0].endDate],
 				options: {
 					adult: options.adult,
 					children: options.children,
-					room: options.room
-				}
-			}
-		})
+					room: options.room,
+				},
+			},
+		});
 
 		navigate("/hotels", { state: { destination, date, options } });
 	};
@@ -106,7 +105,9 @@ const Header = ({ type }) => {
 							Get rewarder for your travels - unlock instant savings of 10% or
 							more with a free nc booking account
 						</p>
-						<button className="header-bttn">Sign in / Resister</button>
+						{!user && (
+							<button className="header-bttn">Sign in / Resister</button>
+						)}
 
 						<div className="header-search">
 							<div className="header-search-item">

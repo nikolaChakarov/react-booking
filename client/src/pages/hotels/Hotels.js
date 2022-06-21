@@ -43,7 +43,11 @@ const Hotels = () => {
 
 						<div className="list-search-item">
 							<label>Destination</label>
-							<input type="text" placeholder={destination} />
+							<input
+								type="text"
+								placeholder={destination}
+								onChange={(e) => setDestination(e.target.value)}
+							/>
 						</div>
 
 						<div className="list-search-item">

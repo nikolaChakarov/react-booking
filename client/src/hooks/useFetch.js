@@ -26,6 +26,7 @@ const useFetch = (url) => {
 	}, []);
 
 	const refetch = async () => {
+		console.log(url);
 		setLoading(true);
 
 		try {
