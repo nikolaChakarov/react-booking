@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
+import { AuthContext } from "../../context/AuthContext";
 
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
@@ -9,6 +10,7 @@ import Slider from "../../components/slider/Slider";
 
 import useFetch from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
+import calcDays from '../../utils/calcDays';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
@@ -34,6 +36,10 @@ const Hotel = () => {
 			src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707389.jpg?k=52156673f9eb6d5d99d3eed9386491a0465ce6f3b995f005ac71abc192dd5827&o=&hp=1",
 		},
 	];
+
+	const { reservationInfo } = useContext(AuthContext);
+
+	const [daysCount, setDaysCount] = useState(calcDays(reservationInfo.dates[0], reservationInfo.dates[1]));
 
 	const [photoClick, setPhotoClick] = useState({
 		id: "",
@@ -114,13 +120,13 @@ const Hotel = () => {
 								</p>
 							</div>
 							<div className="hotel-details-price">
-								<h1>Perfect for a 9-night stay!</h1>
+								<h1>Perfect for a {daysCount}-night stay!</h1>
 								<span>
 									Located in the real heart of Krakow, this property has an
 									excellent location score of 9.8!
 								</span>
 								<h2>
-									<b>$945</b> (9 nights)
+									<b>${daysCount * data.cheapestPrice * reservationInfo.options.room}</b> ({daysCount} nights)
 								</h2>
 								<button>Reserve or Book Now!</button>
 							</div>
