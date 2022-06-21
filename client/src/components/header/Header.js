@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+
+import { AuthContext } from "../../context/AuthContext";
 
 import { format } from "date-fns";
 
@@ -21,6 +23,7 @@ import {
 
 const Header = ({ type }) => {
 	const navigate = useNavigate();
+	const { dispatch } = useContext(AuthContext);
 
 	const [destination, setDestination] = useState("");
 	const [openCalendar, setOpenCalendar] = useState(false);
@@ -51,6 +54,20 @@ const Header = ({ type }) => {
 	};
 
 	const handleSearch = () => {
+
+		dispatch({
+			type: 'NEW_SEARCH',
+			payload: {
+				city: destination,
+				dates: [date.startDate, date.endDate],
+				options: {
+					adult: options.adult,
+					children: options.children,
+					room: options.room
+				}
+			}
+		})
+
 		navigate("/hotels", { state: { destination, date, options } });
 	};
 

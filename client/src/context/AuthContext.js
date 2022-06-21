@@ -4,7 +4,16 @@ import AuthReducer from './AuthReducer';
 const INITIAL_STATE = {
     user: null,
     isLoading: false,
-    error: false
+    error: false,
+    hotel: {
+        city: undefined,
+        dates: [],
+        options: {
+            adult: undefined,
+            children: undefined,
+            room: undefined
+        }
+    }
 };
 
 export const AuthContext = createContext(INITIAL_STATE);
@@ -16,6 +25,7 @@ export const AuthProvider = ({ children }) => {
         user: state.user,
         isLoading: state.isLoading,
         error: state.error,
+        hotel: state.hotel,
         dispatch
     }}>
         {children}
