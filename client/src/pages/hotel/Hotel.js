@@ -45,7 +45,7 @@ const Hotel = () => {
 		`hotels/find_hotel_by_id/${params.id}`
 	);
 
-	console.log(data);
+	// console.log(data);
 
 	return (
 		<HotelContainer>
