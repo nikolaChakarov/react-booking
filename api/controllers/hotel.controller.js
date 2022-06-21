@@ -1,4 +1,5 @@
 const Hotel = require("../models/Hotel");
+const Room = require("../models/Room");
 
 exports.createHotel = async (req, res, next) => {
 	try {
@@ -97,6 +98,28 @@ exports.countByType = async (req, res, next) => {
 			});
 
 		res.status(200).json({ status: "success", data: list });
+	} catch (err) {
+		next(err);
+	}
+};
+
+exports.getHotelRooms = async (req, res, next) => {
+	const hotelId = req.params.hotelId;
+
+	try {
+		const hotel = await Hotel.findById(hotelId);
+
+		// console.log(hotel);
+
+		const rooms = await Promise.all(
+			hotel.rooms.map((room) => {
+				return Room.findById(room);
+			})
+		);
+
+		// console.log(rooms);
+
+		res.status(200).json({ success: true, data: rooms });
 	} catch (err) {
 		next(err);
 	}

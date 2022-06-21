@@ -30,14 +30,14 @@ const AuthReducer = (state, action) => {
 		case "NEW_SEARCH":
 			return {
 				...state,
-				// reservationInfo: JSON.parse(JSON.stringify(action.payload))
-				reservationInfo: action.payload,
+				// searchOptions: JSON.parse(JSON.stringify(action.payload))
+				searchOptions: action.payload,
 			};
 
 		case "RESET_SEARCH":
 			return {
 				...state,
-				reservationInfo: {
+				searchOptions: {
 					city: undefined,
 					dates: [],
 					options: {

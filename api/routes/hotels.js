@@ -8,6 +8,7 @@ const {
 	getAllHotels,
 	countByCity,
 	countByType,
+	getHotelRooms,
 } = require("../controllers/hotel.controller");
 
 const { verifyUser, verifyAdmin } = require("../utils/verifyToken");
@@ -31,5 +32,8 @@ router.get("/", getAllHotels);
 router.get("/countByCity", countByCity);
 
 router.get("/countByType", countByType);
+
+// FETCH HOTEL ROOMS
+router.get("/rooms/:hotelId", getHotelRooms);
 
 module.exports = router;

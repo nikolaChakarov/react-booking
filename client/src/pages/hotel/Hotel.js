@@ -1,16 +1,18 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import MailList from "../../components/mailList/MailList";
 import Footer from "../../components/footer/Footer";
 import Slider from "../../components/slider/Slider";
+import Reserve from "../../components/reserve/Reserve";
 
 import useFetch from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
-import calcDays from '../../utils/calcDays';
+import calcDays from "../../utils/calcDays";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
@@ -37,19 +39,33 @@ const Hotel = () => {
 		},
 	];
 
-	const { reservationInfo } = useContext(AuthContext);
+	const navigate = useNavigate();
 
-	const [daysCount, setDaysCount] = useState(calcDays(reservationInfo.dates[0], reservationInfo.dates[1]));
+	const { user, searchOptions } = useContext(AuthContext);
+
+	const [daysCount, setDaysCount] = useState(
+		calcDays(searchOptions.dates[0], searchOptions.dates[1])
+	);
 
 	const [photoClick, setPhotoClick] = useState({
 		id: "",
 	});
+
+	const [openReserve, setOpenReserve] = useState(false);
 
 	const params = useParams();
 
 	const { data, loading, error, refetch } = useFetch(
 		`hotels/find_hotel_by_id/${params.id}`
 	);
+
+	const handleClick = (e) => {
+		if (user) {
+			setOpenReserve(true);
+		} else {
+			navigate("/login");
+		}
+	};
 
 	// console.log(data);
 
@@ -67,11 +83,17 @@ const Hotel = () => {
 					/>
 				) : null}
 
+				{openReserve && (
+					<Reserve setOpenReserve={setOpenReserve} hotelId={params.id} />
+				)}
+
 				{loading ? (
 					<p className="loading-p">Loading, please wait...</p>
 				) : (
 					<div className="hotel-wrapper">
-						<button className="book-now">Reserve or Book Now!</button>
+						<button className="book-now" onClick={handleClick}>
+							Reserve or Book Now!
+						</button>
 						<h1 className="hotel-title">{data.name}</h1>
 						<div className="hotel-address">
 							<FontAwesomeIcon icon={faLocationDot} />
@@ -126,9 +148,15 @@ const Hotel = () => {
 									excellent location score of 9.8!
 								</span>
 								<h2>
-									<b>${daysCount * data.cheapestPrice * reservationInfo.options.room}</b> ({daysCount} nights)
+									<b>
+										$
+										{daysCount *
+											data.cheapestPrice *
+											searchOptions.options.room}
+									</b>{" "}
+									({daysCount} nights)
 								</h2>
-								<button>Reserve or Book Now!</button>
+								<button onClick={handleClick}>Reserve or Book Now!</button>
 							</div>
 						</div>
 					</div>

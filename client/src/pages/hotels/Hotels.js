@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { format } from "date-fns";
 import styled from "styled-components";
@@ -9,8 +9,12 @@ import SearchItem from "../../components/searchItem/SearchItem";
 import { DateRange } from "react-date-range";
 import useFetch from "../../hooks/useFetch";
 
+import { AuthContext } from "../../context/AuthContext";
+
 const Hotels = () => {
 	const location = useLocation();
+	const { searchOptions } = useContext(AuthContext);
+	console.log(searchOptions);
 
 	const [destination, setDestination] = useState(location.state.destination);
 
@@ -35,7 +39,6 @@ const Hotels = () => {
 		<HotelsContainer>
 			<Navbar />
 			<Header type={"hotels"} />
-
 			<div className="list-container">
 				<div className="list-wrapper">
 					<div className="list-search">

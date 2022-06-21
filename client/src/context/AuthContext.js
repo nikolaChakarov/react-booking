@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 		: null,
 	isLoading: false,
 	error: false,
-	reservationInfo: {
+	searchOptions: {
 		city: undefined,
 		dates: [],
 		options: {
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 				user: state.user,
 				isLoading: state.isLoading,
 				error: state.error,
-				reservationInfo: state.reservationInfo,
+				searchOptions: state.searchOptions,
 				dispatch,
 			}}
 		>
