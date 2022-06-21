@@ -33,7 +33,7 @@ exports.login = async (req, res, next) => {
 		const isPassOk = await bcrypt.compare(req.body.password, user.password);
 
 		if (!isPassOk) {
-			return next(createError(404, "Wrong password ou username!"));
+			return next(createError(404, "Wrong password or username!"));
 		}
 
 		const token = jwt.sign(

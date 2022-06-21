@@ -1,52 +1,56 @@
 const AuthReducer = (state, action) => {
+	switch (action.type) {
+		case "LOGIN_START":
+			return {
+				...state,
+				isLoading: true,
+			};
 
-    switch (action.type) {
+		case "SUCCESS_LOGIN":
+			return {
+				...state,
+				user: action.payload,
+				isLoading: false,
+				error: false,
+			};
+		case "FAILURE_LOGIN":
+			return {
+				...state,
+				error: action.payload,
+				isLoading: false,
+			};
+		case "LOGOUT":
+			return {
+				...state,
+				user: null,
+				isLoading: false,
+				error: false,
+			};
 
-        case 'LOADING':
-            return {
-                ...state,
-                isLoading: true
-            };
+		case "NEW_SEARCH":
+			return {
+				...state,
+				// reservationInfo: JSON.parse(JSON.stringify(action.payload))
+				reservationInfo: action.payload,
+			};
 
-        case 'SUCCESS_USER_AUTH':
-            return {
-                ...state,
-                user: action.payload,
-                isLoading: false,
-                error: false
-            };
-        case 'FAILURE_USER_AUTH':
-            return {
-                ...state,
-                error: true,
-                isLoading: false
-            };
+		case "RESET_SEARCH":
+			return {
+				...state,
+				reservationInfo: {
+					city: undefined,
+					dates: [],
+					options: {
+						adult: undefined,
+						children: undefined,
+						room: undefined,
+					},
+				},
+			};
 
-        case 'NEW_SEARCH':
-            return {
-                ...state,
-                // reservationInfo: JSON.parse(JSON.stringify(action.payload))
-                reservationInfo: action.payload
-            };
-
-        case 'RESET_SEARCH':
-            return {
-                ...state,
-                reservationInfo: {
-                    city: undefined,
-                    dates: [],
-                    options: {
-                        adult: undefined,
-                        children: undefined,
-                        room: undefined
-                    }
-                }
-            }
-
-        default:
-            return state;
-    }
-
+		default:
+			return state;
+	}
 };
 
 export default AuthReducer;
