@@ -5,7 +5,7 @@ const INITIAL_STATE = {
     user: null,
     isLoading: false,
     error: false,
-    hotel: {
+    reservationInfo: {
         city: undefined,
         dates: [],
         options: {
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
         user: state.user,
         isLoading: state.isLoading,
         error: state.error,
-        hotel: state.hotel,
+        reservationInfo: state.reservationInfo,
         dispatch
     }}>
         {children}

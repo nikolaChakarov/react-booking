@@ -59,7 +59,7 @@ const Header = ({ type }) => {
 			type: 'NEW_SEARCH',
 			payload: {
 				city: destination,
-				dates: [date.startDate, date.endDate],
+				dates: [date[0].startDate, date[0].endDate],
 				options: {
 					adult: options.adult,
 					children: options.children,
