@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 import useFetch from "../../hooks/useFetch";
@@ -9,7 +10,19 @@ const Reserve = ({ setOpenReserve, hotelId }) => {
 	// console.log(hotelId);
 	const { data } = useFetch(`hotels/rooms/${hotelId}`);
 
-	console.log(data);
+	const [selectedRooms, setSelectedRooms] = useState([]);
+	const handleSelectRoom = (e) => {
+		const checked = e.target.checked;
+		const roomId = e.target.value;
+
+		setSelectedRooms(
+			checked
+				? [...selectedRooms, roomId]
+				: selectedRooms.filter((el) => el !== roomId)
+		);
+	};
+
+	const handleClick = (e) => {};
 
 	return (
 		<ReserveEl>
@@ -32,9 +45,24 @@ const Reserve = ({ setOpenReserve, hotelId }) => {
 							<div className="r-price">{el.price}</div>
 						</div>
 
-						<div className="room"></div>
+						{el.roomNumbers.map((roomNumber, i) => {
+							return (
+								<div className="room" key={i}>
+									<label>{roomNumber.number}</label>
+									<input
+										type="checkbox"
+										value={roomNumber._id}
+										onChange={handleSelectRoom}
+										// disabled={selectedRooms.includes(roomNumber._id)}
+									/>
+								</div>
+							);
+						})}
 					</div>
 				))}
+				<button onClick={handleClick} className="r-bttn">
+					Reserve Now!
+				</button>
 			</div>
 		</ReserveEl>
 	);
