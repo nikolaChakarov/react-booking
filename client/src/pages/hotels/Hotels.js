@@ -13,8 +13,8 @@ import { AuthContext } from "../../context/AuthContext";
 
 const Hotels = () => {
 	const location = useLocation();
-	const { searchOptions } = useContext(AuthContext);
-	console.log(searchOptions);
+	const { searchOptions, dispatch } = useContext(AuthContext);
+	// console.log(searchOptions);
 
 	const [destination, setDestination] = useState(location.state.destination);
 
@@ -33,7 +33,22 @@ const Hotels = () => {
 
 	const handleClick = (e) => {
 		refetch();
+
+		dispatch({
+			type: "NEW_SEARCH",
+			payload: {
+				city: destination,
+				dates: [date[0].startDate, date[0].endDate],
+				options: {
+					adult: options.adult,
+					children: options.children,
+					room: options.room,
+				},
+			},
+		});
 	};
+
+	// console.log(searchOptions);
 
 	return (
 		<HotelsContainer>
@@ -104,6 +119,12 @@ const Hotels = () => {
 										className="ls-option-input"
 										placeholder={options.adult}
 										min={1}
+										onChange={(e) =>
+											setOptions((prev) => ({
+												...prev,
+												adult: Number(e.target.value),
+											}))
+										}
 									/>
 								</div>
 
@@ -114,6 +135,12 @@ const Hotels = () => {
 										className="ls-option-input"
 										placeholder={options.children}
 										min={0}
+										onChange={(e) =>
+											setOptions((prev) => ({
+												...prev,
+												children: Number(e.target.value),
+											}))
+										}
 									/>
 								</div>
 
@@ -124,6 +151,12 @@ const Hotels = () => {
 										className="ls-option-input"
 										placeholder={options.room}
 										min={1}
+										onChange={(e) =>
+											setOptions((prev) => ({
+												...prev,
+												room: Number(e.target.value),
+											}))
+										}
 									/>
 								</div>
 							</div>

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import styled from "styled-components";
 
 import useFetch from "../../hooks/useFetch";
@@ -7,7 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 
 const Reserve = ({ setOpenReserve, hotelId }) => {
-	// console.log(hotelId);
+	const { searchOptions } = useContext(AuthContext);
+
+	console.log(searchOptions);
+
 	const { data } = useFetch(`hotels/rooms/${hotelId}`);
 
 	const [selectedRooms, setSelectedRooms] = useState([]);
